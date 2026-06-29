@@ -72,37 +72,28 @@ export default function Overview() {
             <span className="font-semibold text-sm text-txt-1">Watchlist</span>
             <span className="font-mono text-xs text-txt-3 border border-line px-2 py-0.5 rounded">DELAYED · RISK-RANKED</span>
           </div>
-          <table className="w-full">
-            <thead>
-              <tr>
-                {['Stock', 'Last', 'Chg %', 'Regime', 'Risk'].map(h => (
-                  <th key={h} className="font-mono text-xs text-txt-3 uppercase tracking-widest pb-2.5 text-right first:text-left border-b border-line">{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {watchlist.map((s, i) => (
-                <tr key={i}>
-                  <td className="py-2.5 border-b border-line-soft last:border-0">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-6 h-6 rounded bg-[#152037] border border-line flex items-center justify-center font-mono font-bold text-xs text-txt-2">{s.name[0]}</div>
-                      <div>
-                        <div className="text-sm text-txt-1">{s.name}</div>
-                        <div className="font-mono text-xs text-txt-3">{s.ticker}</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="font-mono text-xs text-txt-1 text-right py-2.5 border-b border-line-soft">₹{s.price}</td>
-                  <td className={`font-mono text-xs text-right py-2.5 border-b border-line-soft ${s.up ? 'text-up' : 'text-down'}`}>{s.chg}</td>
-                  <td className={`font-mono text-xs text-right py-2.5 border-b border-line-soft ${s.regime === 'High Vol' ? 'text-amber' : 'text-up'}`}>{s.regime}</td>
-                  <td className="text-right py-2.5 border-b border-line-soft">
-                    <span className={`font-mono text-xs px-2 py-0.5 rounded ${chipColors[s.chip]}`}>{s.risk}</span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="flex flex-col gap-2">
+  {watchlist.map((s, i) => (
+    <div key={i} className="flex items-center justify-between p-2.5 bg-panel-2 rounded-lg border border-line-soft">
+      <div className="flex items-center gap-2.5">
+        <div className="w-7 h-7 rounded bg-[#152037] border border-line flex items-center justify-center font-mono font-bold text-xs text-txt-2 flex-none">{s.name[0]}</div>
+        <div>
+          <div className="text-sm font-medium text-txt-1">{s.name}</div>
+          <div className="font-mono text-xs text-txt-3">{s.ticker}</div>
         </div>
+      </div>
+      <div className="text-right">
+        <div className="font-mono text-sm text-txt-1">₹{s.price}</div>
+        <div className={`font-mono text-xs ${s.up ? 'text-up' : 'text-down'}`}>{s.chg}</div>
+      </div>
+      <div className="text-right ml-2">
+        <span className={`font-mono text-xs px-2 py-0.5 rounded ${chipColors[s.chip]}`}>{s.risk}</span>
+        <div className={`font-mono text-xs mt-1 ${s.regime === 'High Vol' ? 'text-amber' : 'text-up'}`}>{s.regime}</div>
+      </div>
+    </div>
+  ))}
+</div>
+        
 
         {/* Modules */}
         <div className="col-span-1 md:col-span-2 bg-panel border border-line-soft rounded-xl p-4">
