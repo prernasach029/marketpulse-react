@@ -1,70 +1,172 @@
-# Getting Started with Create React App
+# MarketPulse India — React Edition 📈
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> Full-stack NSE stock risk analysis platform built with React + FastAPI. Bloomberg-style dark terminal UI with real-time AI insights.
 
-## Available Scripts
+🔗 **Live App:** [marketpulse-react.vercel.app](https://marketpulse-react.vercel.app)  
+⚙️ **API:** [marketpulse-india-production.up.railway.app](https://marketpulse-india-production.up.railway.app/docs)  
+📊 **Streamlit Version:** [marketpulse-india.streamlit.app](https://marketpulse-india.streamlit.app)
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## What is this?
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+MarketPulse India is a multi-model financial risk intelligence platform for NSE-listed equities. It combines three statistical/ML engines with an LLM-powered AI assistant to give retail investors both quantitative metrics and plain-English investment insights.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+This is the full-stack React + FastAPI rebuild of the original Streamlit version — built for better performance, mobile support, and a professional Bloomberg-style terminal UI.
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Features
 
-### `npm run build`
+### Stock Analysis
+- **EVT/GPD Tail Risk** — Peaks Over Threshold method for 99% VaR and Expected Shortfall
+- **HMM Regime Detection** — 2-state Gaussian HMM for High/Low volatility regime classification
+- **FinBERT Sentiment** — Financial news sentiment via Groq LLM
+- **Composite Risk Score** — Weighted 0–100 score with Red/Amber/Green label
+- **30-Day ARIMA Forecast** — Price prediction with confidence bands
+- **AI Investment Insights** — Bull/Bear case, Buy/Hold/Sell signal, Portfolio tip
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Portfolio Tracker
+- Analyze up to 5 NSE stocks simultaneously
+- Risk ranking table sorted lowest to highest
+- Portfolio health score with AI rebalancing advice
+- Bar chart visualization
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Earnings Analysis
+- Quarterly revenue and net profit trends
+- EPS actual vs estimate beat/miss history
+- Key metrics — P/E, EPS TTM, Revenue, Profit Margin
+- AI earnings health summary
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### News Feed
+- Real-time financial headlines via Google News RSS
+- Source and timestamp for every article
+- Search by company or topic
 
-### `npm run eject`
+### AI Chatbot
+- Context-aware — knows your last stock analysis
+- Suggested questions for first-time users
+- Powered by Groq's Llama 3.3 70B
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Tech Stack
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+| Layer | Technology |
+|---|---|
+| Frontend | React 18 + Tailwind CSS |
+| Charts | Recharts |
+| Icons | Lucide React |
+| Routing | React Router v6 |
+| HTTP | Axios |
+| Backend | FastAPI + Uvicorn |
+| Tail Risk | SciPy (GPD/EVT) |
+| Regime Detection | hmmlearn (Gaussian HMM) |
+| Forecasting | statsmodels (ARIMA) |
+| AI Insights | Groq API (Llama 3.3 70B) |
+| Data | yfinance (NSE via Yahoo Finance) |
+| News | feedparser (Google News RSS) |
+| Frontend Deploy | Vercel |
+| Backend Deploy | Railway |
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+## Architecture
+marketpulse-react/          ← React frontend (Vercel)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+src/
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+pages/
 
-### Code Splitting
+Overview.jsx
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+StockAnalysis.jsx
 
-### Analyzing the Bundle Size
+NewsFeed.jsx
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Portfolio.jsx
 
-### Making a Progressive Web App
+Earnings.jsx
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Chatbot.jsx
 
-### Advanced Configuration
+components/
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Sidebar.jsx
 
-### Deployment
+TickerBar.jsx
+marketpulse-india/          ← FastAPI backend (Railway)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+api.py                  ← All API endpoints
 
-### `npm run build` fails to minify
+risk.py                 ← EVT/GPD tail risk engine
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+regime.py               ← HMM regime detection
+
+sentiment.py            ← News sentiment scoring
+
+scoring.py              ← Composite score calculator
+
+data/fetcher.py         ← yfinance data pipeline
+
+---
+
+## API Endpoints
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/analyze` | Full stock risk analysis |
+| POST | `/insights` | AI bull/bear/signal insights |
+| POST | `/chat` | Context-aware chatbot |
+| GET | `/news` | Financial news feed |
+| GET | `/earnings` | Earnings analysis |
+| GET | `/health` | Health check |
+
+Full API docs: [/docs](https://marketpulse-india-production.up.railway.app/docs)
+
+---
+
+## Local Setup
+
+```bash
+# Clone repos
+git clone https://github.com/prernasach029/marketpulse-react
+git clone https://github.com/prernasach029/marketpulse-india
+
+# Backend
+cd marketpulse-india
+conda create -n marketpulse python=3.11
+conda activate marketpulse
+pip install -r requirements.txt
+echo "GROQ_API_KEY=your-key" > .env
+uvicorn api:app --reload --port 8000
+
+# Frontend (new terminal)
+cd marketpulse-react
+npm install
+echo "REACT_APP_API_URL=http://localhost:8000" > .env
+npm start
+```
+
+---
+
+## Environment Variables
+
+| Variable | Where | Description |
+|---|---|---|
+| `GROQ_API_KEY` | Railway | Groq API key for LLM |
+| `REACT_APP_API_URL` | Vercel | Backend API URL |
+
+---
+
+## Disclaimer
+
+This app is for **educational purposes only**. Nothing here constitutes financial advice. Data via Yahoo Finance — prices delayed 15-20 minutes. Always consult a SEBI-registered investment advisor before investing.
+
+---
+
+## Author
+
+**Prerna Sachdeva**  
+MSc Statistics & Data Science, SVKM's NMIMS Mumbai  
+[GitHub](https://github.com/prernasach029) · [Streamlit Version](https://marketpulse-india.streamlit.app)
