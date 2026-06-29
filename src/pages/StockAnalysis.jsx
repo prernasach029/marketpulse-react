@@ -277,7 +277,7 @@ export default function StockAnalysis({ setAnalysisData }) {
                   {cleanText(insights.summary.trim())}
                 </div>
               )}
-              <div className="grid grid-cols-2 gap-3 mb-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
                 <div className="bg-up/10 border border-up/25 rounded-lg p-3.5">
                   <div className="font-mono text-xs text-up uppercase tracking-widest font-bold mb-2">Bull Case</div>
                   <div className="text-xs text-txt-2 leading-relaxed whitespace-pre-line">
@@ -333,7 +333,7 @@ export default function StockAnalysis({ setAnalysisData }) {
                 <span className="font-semibold text-sm text-txt-1">30-Day Forecast</span>
                 <span className="font-mono text-xs text-txt-3 border border-line px-2 py-0.5 rounded">ARIMA(5,1,0)</span>
               </div>
-              <div className="flex gap-0 mb-3 border border-line-soft rounded-lg overflow-hidden">
+              <div className="grid grid-cols-1 md:flex gap-0 mb-3 border border-line-soft rounded-lg overflow-hidden">
                 {[
                   { l: 'Current', v: `₹${result.current_price}` },
                   { l: 'Predicted 30D', v: `₹${result.forecast[result.forecast.length - 1]?.price}` },

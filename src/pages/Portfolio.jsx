@@ -159,7 +159,7 @@ export default function Portfolio() {
                 <span className="text-txt-3 text-sm font-normal"> / 100</span>
               </div>
               {advice ? (
-  <p className="text-xs text-txt-2 leading-relaxed whitespace-pre-line">{advice}</p>
+  <p className="text-xs text-txt-2 leading-relaxed whitespace-pre-line">{advice.replace(/\*\*/g, '').replace(/\*/g, '')}</p>
 ) : (
   <p className="text-xs text-txt-3 font-mono">AI advice loading... if this persists, the Groq API may be rate limited.</p>
 )}

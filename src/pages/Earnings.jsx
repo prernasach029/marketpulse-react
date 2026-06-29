@@ -65,7 +65,7 @@ export default function Earnings() {
       </div>
 
       <div className="bg-panel border border-line-soft rounded-xl p-4 mb-5">
-        <div className="grid grid-cols-3 gap-3 items-end">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 items-end">
           <div>
             <label className="font-mono text-xs text-txt-3 uppercase tracking-widest block mb-1.5">
               Select Company
@@ -123,7 +123,7 @@ export default function Earnings() {
       {data && (
         <div className="space-y-3.5">
           {/* Key metrics */}
-          <div className="grid grid-cols-4 gap-3.5">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5">
             {[
               { l: 'P/E Ratio', v: data.pe ?? 'N/A' },
               { l: 'EPS (TTM)', v: data.eps ?? 'N/A' },
