@@ -49,7 +49,7 @@ export default function Overview() {
       </div>
 
       {/* Snap metrics */}
-      <div className="grid grid-cols-4 gap-3.5 mb-3.5">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 mb-3.5">
         {[
           { l: 'NIFTY 50', v: '24,318.40', c: '+0.62%', up: true },
           { l: 'SENSEX', v: '79,943.71', c: '+0.55%', up: true },
@@ -65,9 +65,9 @@ export default function Overview() {
       </div>
 
       {/* Split: Watchlist + Modules */}
-      <div className="grid grid-cols-5 gap-3.5">
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-3.5">
         {/* Watchlist */}
-        <div className="col-span-3 bg-panel border border-line-soft rounded-xl p-4">
+        <div className="col-span-1 md:col-span-3 bg-panel border border-line-soft rounded-xl p-4">
           <div className="flex items-center justify-between mb-3.5">
             <span className="font-semibold text-sm text-txt-1">Watchlist</span>
             <span className="font-mono text-xs text-txt-3 border border-line px-2 py-0.5 rounded">DELAYED · RISK-RANKED</span>
@@ -105,7 +105,7 @@ export default function Overview() {
         </div>
 
         {/* Modules */}
-        <div className="col-span-2 bg-panel border border-line-soft rounded-xl p-4">
+        <div className="col-span-1 md:col-span-2 bg-panel border border-line-soft rounded-xl p-4">
           <div className="flex items-center justify-between mb-3.5">
             <span className="font-semibold text-sm text-txt-1">Modules</span>
             <span className="font-mono text-xs text-txt-3 border border-line px-2 py-0.5 rounded">5 TOOLS</span>

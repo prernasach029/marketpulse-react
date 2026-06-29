@@ -70,7 +70,7 @@ export default function Portfolio() {
 
       <div className="bg-panel border border-line-soft rounded-xl p-4 mb-5">
         <p className="text-sm text-txt-2 mb-3">Enter up to 5 NSE stocks</p>
-        <div className="grid grid-cols-5 gap-2 mb-3">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-2 mb-3">
           {stocks.map((s, i) => (
             <div key={i} className="flex flex-col gap-1.5">
               <input
@@ -139,7 +139,7 @@ export default function Portfolio() {
             </table>
           </div>
 
-          <div className="grid grid-cols-2 gap-3.5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
             <div className="bg-panel border border-line-soft rounded-xl p-4">
               <div className="font-semibold text-sm text-txt-1 mb-3">Risk Score by Stock</div>
               <ResponsiveContainer width="100%" height={180}>

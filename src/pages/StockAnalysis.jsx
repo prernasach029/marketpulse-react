@@ -189,7 +189,7 @@ export default function StockAnalysis({ setAnalysisData }) {
             </div>
           </div>
 
-          <div className="grid grid-cols-4 gap-3.5">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5">
             {[
               { l: '99% VaR', v: `-${result.var_99}%`, color: 'text-down', foot: 'Worst expected daily loss' },
               { l: '99% ES', v: `-${result.es_99}%`, color: 'text-down', foot: 'Avg loss when VaR breached' },
@@ -204,7 +204,7 @@ export default function StockAnalysis({ setAnalysisData }) {
             ))}
           </div>
 
-          <div className="grid grid-cols-2 gap-3.5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
             <div className="bg-panel border border-line-soft rounded-xl p-4">
               <div className="flex items-center justify-between mb-3.5">
                 <span className="font-semibold text-sm text-txt-1">Composite Risk Score</span>
