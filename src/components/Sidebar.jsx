@@ -19,7 +19,7 @@ export default function Sidebar() {
   const [homeOpen, setHomeOpen] = useState(true);
 
   return (
-    <aside className="w-56 bg-navy-2 border-r border-line flex flex-col flex-none">
+    <aside className="w-full md:w-56 bg-navy-2 border-r border-line flex flex-col flex-none md:flex-none" style={{maxHeight: window.innerWidth < 768 ? 'auto' : '100vh'}}>
       {/* Brand */}
       <div className="flex items-center gap-3 px-4 py-4 border-b border-line">
         <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent to-blue-800 flex items-center justify-center flex-none shadow-lg">

@@ -158,7 +158,11 @@ export default function Portfolio() {
                 {(results.reduce((a, b) => a + b.composite_score, 0) / results.length).toFixed(1)}
                 <span className="text-txt-3 text-sm font-normal"> / 100</span>
               </div>
-              {advice && <p className="text-xs text-txt-2 leading-relaxed whitespace-pre-line">{advice.replace(/\*\*/g, '').replace(/\*/g, '')}</p>}
+              {advice ? (
+  <p className="text-xs text-txt-2 leading-relaxed whitespace-pre-line">{advice}</p>
+) : (
+  <p className="text-xs text-txt-3 font-mono">AI advice loading... if this persists, the Groq API may be rate limited.</p>
+)}
             </div>
           </div>
         </div>
