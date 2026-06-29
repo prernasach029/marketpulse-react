@@ -26,7 +26,6 @@ const TICKER_MAP = {
 };
 
 export default function Earnings() {
-  const [ticker, setTicker] = useState('');
   const [company, setCompany] = useState('');
   const [manualTicker, setManualTicker] = useState('');
   const [loading, setLoading] = useState(false);
@@ -34,6 +33,7 @@ export default function Earnings() {
   const [error, setError] = useState('');
 
   const effectiveTicker = company ? TICKER_MAP[company] : manualTicker.trim();
+  
 
   const fetchEarnings = async () => {
     if (!effectiveTicker) {
