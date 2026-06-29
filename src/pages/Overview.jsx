@@ -70,7 +70,7 @@ export default function Overview() {
         <div className="col-span-3 bg-panel border border-line-soft rounded-xl p-4">
           <div className="flex items-center justify-between mb-3.5">
             <span className="font-semibold text-sm text-txt-1">Watchlist</span>
-            <span className="font-mono text-xs text-txt-3 border border-line px-2 py-0.5 rounded">RISK-RANKED</span>
+            <span className="font-mono text-xs text-txt-3 border border-line px-2 py-0.5 rounded">DELAYED · RISK-RANKED</span>
           </div>
           <table className="w-full">
             <thead>

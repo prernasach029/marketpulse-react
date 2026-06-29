@@ -185,6 +185,7 @@ export default function StockAnalysis({ setAnalysisData }) {
             </div>
             <div className="text-right">
               <div className="font-mono text-3xl font-semibold text-txt-1">₹{result.current_price?.toLocaleString('en-IN')}</div>
+              <div className="font-mono text-xs text-txt-3 mt-1">Delayed 15-20 min · Yahoo Finance</div>
             </div>
           </div>
 
