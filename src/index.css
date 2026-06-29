@@ -55,3 +55,21 @@ body {
     padding: 0 10px !important;
   }
 }
+@media (max-width: 767px) {
+  /* Bigger touch targets */
+  button {
+    min-height: 44px;
+  }
+  select, input {
+    min-height: 44px;
+    font-size: 16px !important;
+  }
+  /* More breathing room */
+  .p-4 {
+    padding: 1rem !important;
+  }
+  /* Fix price display */
+  .font-mono.text-3xl {
+    font-size: 1.5rem !important;
+  }
+}
