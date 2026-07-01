@@ -1,29 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-* { box-sizing: border-box; }
-
-body {
-  background: #0A0F1E;
-  color: #E7ECF6;
-  font-family: 'Inter', sans-serif;
-  margin: 0;
-}
-
-::-webkit-scrollbar { width: 9px; }
-::-webkit-scrollbar-thumb { background: #1c2742; border-radius: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-
-@keyframes ticker {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-.animate-ticker {
-  animation: ticker 38s linear infinite;
-}
-.animate-ticker:hover {
-  animation-play-state: paused;
-}
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
