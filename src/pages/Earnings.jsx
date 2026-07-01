@@ -86,8 +86,7 @@ export default function Earnings() {
             </select>
           </div>
           <div>
-            <label className="font-mono text-xs text-txt-3 uppercase tracking-widest block mb-1.5">
-              Or Enter Ticker
+            
             </label>
             <input
               value={manualTicker}
