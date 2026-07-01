@@ -1,9 +1,19 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import React, { useState, useEffect } from 'react';
 
 const API = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 
+const [allStocks, setAllStocks] = useState(TICKER_MAP);
+
+useEffect(() => {
+  axios.get(`${API}/stocks`).then(res => {
+    setAllStocks(res.data.stocks);
+  }).catch(() => {});
+}, []);
+
+const ticker = selectedCompany ? allStocks[selectedCompany] : manualTicker.trim().toUpperCase();
 const NSE_STOCKS = [
   "Reliance Industries", "TCS", "HDFC Bank", "Infosys", "ICICI Bank",
   "Hindustan Unilever", "ITC", "Kotak Mahindra Bank", "Larsen & Toubro",
@@ -126,7 +136,7 @@ export default function StockAnalysis({ setAnalysisData }) {
               className="w-full bg-panel-2 border border-line text-txt-1 font-mono text-sm rounded-lg px-3 py-3 outline-none focus:border-accent/60"
             >
               <option value="">Select company...</option>
-              {NSE_STOCKS.sort().map(s => <option key={s} value={s}>{s}</option>)}
+              {Object.keys(allStocks).sort().map(s => <option key={s} value={s}>{s}</option>)}
             </select>
           </div>
           <div>
