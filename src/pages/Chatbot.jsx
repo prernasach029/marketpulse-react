@@ -42,9 +42,9 @@ export default function Chatbot({ analysisData }) {
   };
 
   return (
-    <div className="p-6 flex flex-col h-full">
+    <div className="p-4 md:p-6 flex flex-col" style={{height: 'calc(100vh - 120px)'}}>
       <div className="mb-4">
-        <h1 className="text-2xl font-bold text-txt-1">AI Assistant</h1>
+        <h1 className="text-xl md:text-2xl font-bold text-txt-1">AI Assistant</h1>
         <p className="font-mono text-xs text-txt-3 tracking-widest mt-1">ASSISTANT / CHATBOT</p>
       </div>
 
@@ -54,16 +54,16 @@ export default function Chatbot({ analysisData }) {
         </div>
       )}
 
-      <div className="flex-1 bg-panel border border-line-soft rounded-xl p-4 overflow-y-auto mb-4 min-h-96">
+      <div className="flex-1 bg-panel border border-line-soft rounded-xl p-4 overflow-y-auto mb-4">
         {messages.length === 0 && (
           <div>
             <p className="text-txt-3 text-sm mb-4 font-mono">Suggested questions:</p>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
               {suggestions.map((s, i) => (
                 <button
                   key={i}
                   onClick={() => send(s)}
-                  className="text-left text-xs text-txt-2 bg-panel-2 border border-line-soft rounded-lg px-3 py-2.5 hover:border-accent/40 transition-colors"
+                  className="text-left text-xs text-txt-2 bg-panel-2 border border-line-soft rounded-lg px-3 py-3 hover:border-accent/40 transition-colors"
                 >
                   {s}
                 </button>
@@ -74,7 +74,7 @@ export default function Chatbot({ analysisData }) {
 
         {messages.map((msg, i) => (
           <div key={i} className={`mb-4 flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-            <div className={`max-w-xl rounded-xl px-4 py-3 text-sm leading-relaxed ${
+            <div className={`max-w-xs md:max-w-xl rounded-xl px-4 py-3 text-sm leading-relaxed ${
               msg.role === 'user'
                 ? 'bg-accent text-white'
                 : 'bg-panel-2 border border-line-soft text-txt-1'
@@ -114,7 +114,7 @@ export default function Chatbot({ analysisData }) {
           <Send size={16} />
         </button>
       </div>
-      <p className="font-mono text-xs text-txt-3 text-center mt-3">Not financial advice · Consult a SEBI-registered advisor</p>
+      <p className="font-mono text-xs text-txt-3 text-center mt-3 pb-2">Not financial advice · Consult a SEBI-registered advisor</p>
     </div>
   );
 }

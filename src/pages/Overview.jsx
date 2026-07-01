@@ -39,7 +39,7 @@ export default function Overview() {
       <div className="mb-4 md:mb-6">
         <h2 className="text-lg font-bold text-txt-1">Welcome to MarketPulse India.</h2>
         <p className="text-txt-2 text-sm mt-1.5 leading-relaxed">
-          Multi-model risk intelligence for NSE equities — tail risk via EVT, volatility regimes via HMM, and news sentiment via FinBERT.
+          Multi-model risk intelligence for NSE equities - tail risk via EVT, volatility regimes via HMM, and news sentiment via FinBERT.
         </p>
       </div>
 
