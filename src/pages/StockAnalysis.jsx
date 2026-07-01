@@ -126,7 +126,7 @@ export default function StockAnalysis({ setAnalysisData }) {
             <p className="font-mono text-xs text-txt-3 mt-1">Can't find your stock? Enter ticker manually below.</p>
           </div>
           <div>
-            <label className="font-mono text-xs text-txt-3 uppercase tracking-widest block mb-1.5">Or Enter Ticker</label>
+            
             <input
               value={manualTicker}
               onChange={e => { setManualTicker(e.target.value); setSelectedCompany(''); }}
