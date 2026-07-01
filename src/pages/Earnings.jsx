@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 
@@ -32,7 +32,17 @@ export default function Earnings() {
   const [data, setData] = useState(null);
   const [error, setError] = useState('');
 
-  const effectiveTicker = company ? TICKER_MAP[company] : manualTicker.trim();
+  const [allStocks, setAllStocks] = useState(TICKER_MAP);
+
+  useEffect(() => {
+    axios.get(`${API}/stocks`).then(res => {
+      if (res.data.stocks && Object.keys(res.data.stocks).length > 50) {
+        setAllStocks(res.data.stocks);
+      }
+    }).catch(() => {});
+  }, []);
+
+  const effectiveTicker = company ? allStocks[company] : manualTicker.trim();
 
   const fetchEarnings = async () => {
     if (!effectiveTicker) {
@@ -73,7 +83,7 @@ export default function Earnings() {
               className="w-full bg-panel-2 border border-line text-txt-1 font-mono text-sm rounded-lg px-3 py-3 outline-none focus:border-accent/60"
             >
               <option value="">Select company...</option>
-              {Object.keys(TICKER_MAP).sort().map(c => (
+              {Object.keys(allStocks).sort().map(c => (
                 <option key={c} value={c}>{c}</option>
               ))}
             </select>

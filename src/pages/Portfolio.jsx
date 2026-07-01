@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
@@ -18,6 +18,22 @@ export default function Portfolio() {
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState([]);
   const [advice, setAdvice] = useState('');
+
+  const [allStocks, setAllStocks] = useState({
+    "Reliance Industries": "RELIANCE.NS",
+    "TCS": "TCS.NS",
+    "HDFC Bank": "HDFCBANK.NS",
+    "Infosys": "INFY.NS",
+    "SBI": "SBIN.NS",
+  });
+
+  useEffect(() => {
+    axios.get(`${API}/stocks`).then(res => {
+      if (res.data.stocks && Object.keys(res.data.stocks).length > 50) {
+        setAllStocks(res.data.stocks);
+      }
+    }).catch(() => {});
+  }, []);
 
   const update = (i, field, val) => {
     const s = [...stocks];
@@ -71,13 +87,22 @@ export default function Portfolio() {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-2 mb-3">
           {stocks.map((s, i) => (
             <div key={i} className="flex flex-col gap-1.5">
-              <input value={s.company} onChange={e => update(i, 'company', e.target.value)}
-                placeholder={`Company ${i + 1}`}
-                className="bg-panel-2 border border-line text-txt-1 font-mono text-xs rounded-lg px-2.5 py-2.5 outline-none focus:border-accent/60 placeholder-txt-3" />
-              <input value={s.ticker} onChange={e => update(i, 'ticker', e.target.value)}
-                placeholder="TICKER.NS"
-                className="bg-panel-2 border border-line text-txt-1 font-mono text-xs rounded-lg px-2.5 py-2.5 outline-none focus:border-accent/60 placeholder-txt-3" />
-            </div>
+              <select
+                value={s.company}
+                onChange={e => {
+                  const name = e.target.value;
+                  update(i, 'company', name);
+                  update(i, 'ticker', allStocks[name] || '');
+                }}
+                className="bg-panel-2 border border-line text-txt-1 font-mono text-xs rounded-lg px-2.5 py-2.5 outline-none focus:border-accent/60"
+              >
+                <option value="">Select stock {i + 1}...</option>
+                {Object.keys(allStocks).sort().map(name => (
+                  <option key={name} value={name}>{name}</option>
+                ))}
+              </select>
+              <div className="font-mono text-xs text-txt-3 px-1">{s.ticker || 'No ticker'}</div>
+           </div>
           ))}
         </div>
         <div className="flex gap-3 items-center">
