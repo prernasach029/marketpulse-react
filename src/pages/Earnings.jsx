@@ -70,6 +70,7 @@ export default function Earnings() {
             <label className="font-mono text-xs text-txt-3 uppercase tracking-widest block mb-1.5">
               Select Company
             </label>
+            <p className="font-mono text-xs text-txt-3 mt-1">Can't find your stock? Enter ticker manually below.</p>
             <select
               value={company}
               onChange={e => {
