@@ -1,31 +1,8 @@
-
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import React, { useState, useEffect } from 'react';
 
 const API = process.env.REACT_APP_API_URL || 'http://localhost:8000';
-
-const [allStocks, setAllStocks] = useState(TICKER_MAP);
-
-useEffect(() => {
-  axios.get(`${API}/stocks`).then(res => {
-    setAllStocks(res.data.stocks);
-  }).catch(() => {});
-}, []);
-
-const ticker = selectedCompany ? allStocks[selectedCompany] : manualTicker.trim().toUpperCase();
-const NSE_STOCKS = [
-  "Reliance Industries", "TCS", "HDFC Bank", "Infosys", "ICICI Bank",
-  "Hindustan Unilever", "ITC", "Kotak Mahindra Bank", "Larsen & Toubro",
-  "Axis Bank", "Bajaj Finance", "Asian Paints", "Wipro", "HCL Technologies",
-  "Maruti Suzuki", "Sun Pharma", "Titan Company", "Tech Mahindra",
-  "Nestle India", "Power Grid", "NTPC", "Adani Enterprises", "Adani Ports",
-  "JSW Steel", "Tata Steel", "Tata Motors", "Tata Power", "Bajaj Auto",
-  "UltraTech Cement", "IndusInd Bank", "SBI", "ONGC", "Coal India",
-  "Cipla", "Dr Reddys", "Apollo Hospitals", "Eicher Motors", "Hero MotoCorp",
-  "Zomato", "Nykaa", "Info Edge", "Persistent Systems", "LTIMindtree",
-  "Interglobe Aviation", "Divi's Labs", "Bajaj Finserv", "Grasim Industries",
-];
 
 const TICKER_MAP = {
   "Reliance Industries": "RELIANCE.NS", "TCS": "TCS.NS", "HDFC Bank": "HDFCBANK.NS",
@@ -57,8 +34,17 @@ export default function StockAnalysis({ setAnalysisData }) {
   const [result, setResult] = useState(null);
   const [insights, setInsights] = useState(null);
   const [insightsLoading, setInsightsLoading] = useState(false);
+  const [allStocks, setAllStocks] = useState(TICKER_MAP);
 
-  const ticker = selectedCompany ? TICKER_MAP[selectedCompany] : manualTicker.trim().toUpperCase();
+  useEffect(() => {
+    axios.get(`${API}/stocks`).then(res => {
+      if (res.data.stocks && Object.keys(res.data.stocks).length > 50) {
+        setAllStocks(res.data.stocks);
+      }
+    }).catch(() => {});
+  }, []);
+
+  const ticker = selectedCompany ? allStocks[selectedCompany] : manualTicker.trim().toUpperCase();
   const company = selectedCompany || ticker.replace('.NS', '');
 
   const cleanText = (text) => text?.replace(/\*\*/g, '').replace(/\*/g, '').replace(/#/g, '') || '';
@@ -125,12 +111,10 @@ export default function StockAnalysis({ setAnalysisData }) {
         <p className="font-mono text-xs text-txt-3 tracking-widest mt-1">HOME / STOCK ANALYSIS</p>
       </div>
 
-      {/* Search form */}
       <div className="bg-panel border border-line-soft rounded-xl p-4 mb-4">
         <div className="flex flex-col gap-3">
           <div>
             <label className="font-mono text-xs text-txt-3 uppercase tracking-widest block mb-1.5">Select Company</label>
-            <p className="font-mono text-xs text-txt-3 mt-1">Can't find your stock? Enter ticker manually below.</p>
             <select
               value={selectedCompany}
               onChange={e => { setSelectedCompany(e.target.value); setManualTicker(''); }}
@@ -139,6 +123,7 @@ export default function StockAnalysis({ setAnalysisData }) {
               <option value="">Select company...</option>
               {Object.keys(allStocks).sort().map(s => <option key={s} value={s}>{s}</option>)}
             </select>
+            <p className="font-mono text-xs text-txt-3 mt-1">Can't find your stock? Enter ticker manually below.</p>
           </div>
           <div>
             <label className="font-mono text-xs text-txt-3 uppercase tracking-widest block mb-1.5">Or Enter Ticker</label>
@@ -185,7 +170,6 @@ export default function StockAnalysis({ setAnalysisData }) {
 
       {result && (
         <div className="space-y-3">
-          {/* Stock header */}
           <div className="bg-panel border border-line-soft rounded-xl p-4">
             <div className="flex items-center gap-3 mb-3">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#1a2540] to-[#0f1830] border border-line flex items-center justify-center font-mono font-bold text-lg text-accent flex-none">
@@ -202,7 +186,6 @@ export default function StockAnalysis({ setAnalysisData }) {
             <div className="font-mono text-xs text-txt-3 mt-1">Delayed 15-20 min · Yahoo Finance</div>
           </div>
 
-          {/* KPI metrics */}
           <div className="grid grid-cols-2 gap-3">
             {[
               { l: '99% VaR', v: `-${result.var_99}%`, color: 'text-down', foot: 'Worst expected daily loss' },
@@ -218,7 +201,6 @@ export default function StockAnalysis({ setAnalysisData }) {
             ))}
           </div>
 
-          {/* Risk score */}
           <div className="bg-panel border border-line-soft rounded-xl p-4">
             <div className="flex items-center justify-between mb-3">
               <span className="font-semibold text-sm text-txt-1">Composite Risk Score</span>
@@ -260,7 +242,6 @@ export default function StockAnalysis({ setAnalysisData }) {
             </div>
           </div>
 
-          {/* Latest News */}
           <div className="bg-panel border border-line-soft rounded-xl p-4">
             <div className="flex items-center justify-between mb-2">
               <span className="font-semibold text-sm text-txt-1">Latest News</span>
@@ -274,7 +255,6 @@ export default function StockAnalysis({ setAnalysisData }) {
             )}
           </div>
 
-          {/* AI Insights */}
           {insightsLoading && (
             <div className="bg-panel border border-line-soft rounded-xl p-6 text-center">
               <div className="font-mono text-txt-2 text-sm animate-pulse">Generating AI insights...</div>
@@ -324,7 +304,6 @@ export default function StockAnalysis({ setAnalysisData }) {
             </div>
           )}
 
-          {/* Price History */}
           {result.price_history?.length > 0 && (
             <div className="bg-panel border border-line-soft rounded-xl p-4">
               <div className="flex items-center justify-between mb-3">
@@ -343,7 +322,6 @@ export default function StockAnalysis({ setAnalysisData }) {
             </div>
           )}
 
-          {/* 30-Day Forecast */}
           {result.forecast?.length > 0 && (
             <div className="bg-panel border border-line-soft rounded-xl p-4">
               <div className="flex items-center justify-between mb-3">
