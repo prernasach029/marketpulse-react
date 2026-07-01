@@ -112,6 +112,11 @@ export default function Earnings() {
       {data && (
         <div className="space-y-3">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {(!data.pe && !data.eps && !data.revenue && !data.margin) && (
+      <div className="col-span-2 md:col-span-4 bg-amber/10 border border-amber/30 rounded-xl p-3">
+        <p className="font-mono text-xs text-amber">Key metrics unavailable via Yahoo Finance for this stock. Charts and AI summary may still load below.</p>
+      </div>
+    )}
             {[
               { l: 'P/E Ratio', v: data.pe ?? 'N/A' },
               { l: 'EPS (TTM)', v: data.eps ?? 'N/A' },
