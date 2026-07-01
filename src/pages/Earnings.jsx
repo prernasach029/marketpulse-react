@@ -177,7 +177,7 @@ export default function Earnings() {
           {data.eps_history?.length > 0 && (
             <div className="bg-panel border border-line-soft rounded-xl p-4">
               <div className="flex items-center justify-between mb-3">
-                <span className="font-semibold text-sm text-txt-1">EPS — Actual vs Estimate</span>
+                <span className="font-semibold text-sm text-txt-1">EPS - Actual vs Estimate</span>
                 <span className="font-mono text-xs text-txt-3 border border-line px-2 py-0.5 rounded">BEAT / MISS</span>
               </div>
               <ResponsiveContainer width="100%" height={180}>
