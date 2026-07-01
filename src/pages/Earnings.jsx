@@ -33,7 +33,6 @@ export default function Earnings() {
   const [error, setError] = useState('');
 
   const effectiveTicker = company ? TICKER_MAP[company] : manualTicker.trim();
-  
 
   const fetchEarnings = async () => {
     if (!effectiveTicker) {
@@ -50,58 +49,48 @@ export default function Earnings() {
       });
       setData(res.data);
     } catch (e) {
-      setError(e.response?.data?.detail || 'Could not fetch earnings data. Try TCS.NS or INFY.NS.');
+      setError(e.response?.data?.detail || 'Could not fetch earnings data.');
     }
     setLoading(false);
   };
 
-  const cleanText = (text) => text?.replace(/\*\*/g, '').replace(/\*/g, '') || '';
+  const cleanText = (text) => text?.replace(/\*\*/g, '').replace(/\*/g, '').replace(/#/g, '') || '';
 
   return (
-    <div className="p-6">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-txt-1">Earnings Analysis</h1>
+    <div className="p-4 md:p-6">
+      <div className="mb-4 md:mb-6">
+        <h1 className="text-xl md:text-2xl font-bold text-txt-1">Earnings Analysis</h1>
         <p className="font-mono text-xs text-txt-3 tracking-widest mt-1">HOME / EARNINGS</p>
       </div>
 
-      <div className="bg-panel border border-line-soft rounded-xl p-4 mb-5">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 items-end">
+      <div className="bg-panel border border-line-soft rounded-xl p-4 mb-4">
+        <div className="flex flex-col gap-3">
           <div>
-            <label className="font-mono text-xs text-txt-3 uppercase tracking-widest block mb-1.5">
-              Select Company
-            </label>
-            <p className="font-mono text-xs text-txt-3 mt-1">Can't find your stock? Enter ticker manually below.</p>
+            <label className="font-mono text-xs text-txt-3 uppercase tracking-widest block mb-1.5">Select Company</label>
             <select
               value={company}
-              onChange={e => {
-                setCompany(e.target.value);
-                setManualTicker('');
-              }}
-              className="w-full bg-panel-2 border border-line text-txt-1 font-mono text-sm rounded-lg px-3 py-2.5 outline-none focus:border-accent/60"
+              onChange={e => { setCompany(e.target.value); setManualTicker(''); }}
+              className="w-full bg-panel-2 border border-line text-txt-1 font-mono text-sm rounded-lg px-3 py-3 outline-none focus:border-accent/60"
             >
               <option value="">Select company...</option>
               {Object.keys(TICKER_MAP).sort().map(c => (
                 <option key={c} value={c}>{c}</option>
               ))}
             </select>
+            <p className="font-mono text-xs text-txt-3 mt-1">Can't find your stock? Enter ticker manually below.</p>
           </div>
           <div>
-            
-            </label>
             <input
               value={manualTicker}
-              onChange={e => {
-                setManualTicker(e.target.value);
-                setCompany('');
-              }}
+              onChange={e => { setManualTicker(e.target.value); setCompany(''); }}
               placeholder="e.g. TCS.NS"
-              className="w-full bg-panel-2 border border-line text-txt-1 font-mono text-sm rounded-lg px-3 py-2.5 outline-none focus:border-accent/60 placeholder-txt-3"
+              className="w-full bg-panel-2 border border-line text-txt-1 font-mono text-sm rounded-lg px-3 py-3 outline-none focus:border-accent/60 placeholder-txt-3"
             />
           </div>
           <button
             onClick={fetchEarnings}
             disabled={loading}
-            className="bg-accent hover:bg-blue-600 text-white font-semibold py-2.5 rounded-lg transition-colors disabled:opacity-50"
+            className="w-full bg-accent hover:bg-blue-600 text-white font-semibold py-3 rounded-lg transition-colors disabled:opacity-50 text-sm"
           >
             {loading ? 'Loading...' : 'Get Earnings'}
           </button>
@@ -121,23 +110,21 @@ export default function Earnings() {
       )}
 
       {data && (
-        <div className="space-y-3.5">
-          {/* Key metrics */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5">
+        <div className="space-y-3">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
               { l: 'P/E Ratio', v: data.pe ?? 'N/A' },
               { l: 'EPS (TTM)', v: data.eps ?? 'N/A' },
               { l: 'Revenue (TTM)', v: data.revenue ? `₹${data.revenue} Cr` : 'N/A' },
               { l: 'Profit Margin', v: data.margin ? `${data.margin}%` : 'N/A' },
             ].map((m, i) => (
-              <div key={i} className="bg-panel border border-line-soft rounded-xl p-4">
+              <div key={i} className="bg-panel border border-line-soft rounded-xl p-3">
                 <div className="font-mono text-xs text-txt-3 uppercase tracking-widest">{m.l}</div>
-                <div className="font-mono text-xl font-semibold text-txt-1 mt-2.5">{m.v}</div>
+                <div className="font-mono text-lg font-semibold text-txt-1 mt-2">{m.v}</div>
               </div>
             ))}
           </div>
 
-          {/* Revenue chart */}
           {data.revenue_trend?.length > 0 && (
             <div className="bg-panel border border-line-soft rounded-xl p-4">
               <div className="flex items-center justify-between mb-3">
@@ -155,7 +142,6 @@ export default function Earnings() {
             </div>
           )}
 
-          {/* Profit chart */}
           {data.profit_trend?.length > 0 && (
             <div className="bg-panel border border-line-soft rounded-xl p-4">
               <div className="flex items-center justify-between mb-3">
@@ -173,7 +159,6 @@ export default function Earnings() {
             </div>
           )}
 
-          {/* EPS chart */}
           {data.eps_history?.length > 0 && (
             <div className="bg-panel border border-line-soft rounded-xl p-4">
               <div className="flex items-center justify-between mb-3">
@@ -193,7 +178,6 @@ export default function Earnings() {
             </div>
           )}
 
-          {/* AI Summary */}
           {data.ai_summary && (
             <div className="bg-panel border border-line-soft rounded-xl p-4">
               <div className="flex items-center justify-between mb-3">
@@ -206,7 +190,7 @@ export default function Earnings() {
             </div>
           )}
 
-          <div className="font-mono text-xs text-txt-3 text-center tracking-widest">
+          <div className="font-mono text-xs text-txt-3 text-center tracking-widest pb-4">
             NOT FINANCIAL ADVICE · CONSULT A SEBI-REGISTERED ADVISOR · DATA VIA YAHOO FINANCE
           </div>
         </div>
